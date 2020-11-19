@@ -1,0 +1,8 @@
+[package]
+name = "panama"
+version = "0.1.0"
+authors = ["Vasiliy Kovalev <29655572+vasiliykovalev@users.noreply.github.com>"]
+edition = "2018"
+
+
+[dependencies]
