@@ -61,4 +61,11 @@ mod tests {
         tx.send(42);
         assert_eq!(rx.recv(), 42)
     }
+
+    #[test]
+    fn closed() {
+        let (tx, mut rx) = channel::<()>();
+        let _ = tx;
+        let _ = rx.recv();
+    }
 }
