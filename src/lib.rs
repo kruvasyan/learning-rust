@@ -36,11 +36,6 @@ impl<T> Receiver<T> {
             }
         }
     }
-
-    pub fn try_recv(&mut self) -> Option<T> {
-        let mut queue = self.inner.queue.lock().unwrap();
-        queue.pop_front()
-    }
 }
 
 struct Inner<T> {
