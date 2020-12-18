@@ -52,3 +52,13 @@ pub fn channel<T>() -> (Sender<T>, Receiver<T>) {
     (Sender { inner: inner.clone() }, Receiver { inner: inner.clone() })
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn ping_pong() {
+        let (mut tx, mut rx) = channel();
+        tx.send(42);
+        assert_eq!(rx.recv(), 42)
+    }
+}
