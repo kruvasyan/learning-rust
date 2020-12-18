@@ -91,7 +91,7 @@ mod tests {
     #[test]
     fn closed() {
         let (tx, mut rx) = channel::<()>();
-        let _ = tx;
-        let _ = rx.recv();
+        drop(tx);
+        assert_eq!(rx.recv(), None);
     }
 }
