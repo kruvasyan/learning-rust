@@ -89,9 +89,16 @@ mod tests {
     }
 
     #[test]
-    fn closed() {
+    fn closed_tx() {
         let (tx, mut rx) = channel::<()>();
         drop(tx);
         assert_eq!(rx.recv(), None);
+    }
+
+    #[test]
+    fn closed_rx() {
+        let (mut tx, rx) = channel();
+        drop(rx);
+        tx.send(42);
     }
 }
