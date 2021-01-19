@@ -92,7 +92,10 @@ pub fn channel<T>() -> (Sender<T>, Receiver<T>) {
         available: Condvar::new(),
     };
     let shared = Arc::new(shared);
-    (Sender { shared: shared.clone() }, Receiver { shared: shared.clone() })
+    (
+        Sender { shared: shared.clone() },
+        Receiver { shared: shared.clone(), buffer: Default::default() }
+    )
 }
 
 #[cfg(test)]
