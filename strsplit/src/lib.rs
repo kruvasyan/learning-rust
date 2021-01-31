@@ -40,7 +40,7 @@ fn until_char(s: &str, c: char) -> &str {
 
 #[test]
 fn until_char_test() {
-    assert_eq!(until_char("hello world", 'c'), "hell")
+    assert_eq!(until_char("hello world", 'o'), "hell")
 }
 
 
