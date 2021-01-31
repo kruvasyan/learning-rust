@@ -40,3 +40,11 @@ fn it_works() {
     let letters: Vec<_> = StrSplit::new(haystack, " ").collect();
     assert_eq!(letters, vec!["a", "b", "c", "d", "e"])
 }
+
+
+#[test]
+fn tail() {
+    let haystack = "a b c d ";
+    let letters: Vec<_> = StrSplit::new(haystack, " ").collect();
+    assert_eq!(letters, vec!["a", "b", "c", "d", ""])
+}
