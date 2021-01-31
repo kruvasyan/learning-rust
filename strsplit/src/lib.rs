@@ -17,7 +17,7 @@ impl<'haystack, 'delimiter> StrSplit<'haystack, 'delimiter> {
 }
 
 
-impl<'haystack, 'delimiter> Iterator for StrSplit<'haystack, 'delimiter> {
+impl<'haystack> Iterator for StrSplit<'haystack, '_> {
     type Item = &'haystack str;
 
     fn next(&mut self) -> Option<Self::Item> {
