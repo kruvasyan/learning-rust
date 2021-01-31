@@ -46,10 +46,9 @@ impl Delimiter for &str {
 
 impl Delimiter for char {
     fn find_next(&self, s: &str) -> Option<(usize, usize)> {
-        let char_len = 1;
         s.char_indices()
             .find(|(_, c)| c == self)
-            .map(|(start, _)| (start, start + char_len))
+            .map(|(start, _)| (start, start + self.len_utf8()))
     }
 }
 
