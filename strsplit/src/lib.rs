@@ -32,6 +32,17 @@ impl<'a> Iterator for StrSplit<'a> {
     }
 }
 
+fn until_char(s: &str, c: char) -> &str {
+    StrSplit::new(s, &c.to_string())
+        .next()
+        .expect("StrSplit always gives at least one result")
+}
+
+#[test]
+fn until_char_test() {
+    assert_eq!(until_char("hello world", 'c'), "hell")
+}
+
 
 #[test]
 fn it_works() {
