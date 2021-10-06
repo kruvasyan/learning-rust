@@ -1,5 +1,7 @@
 [workspace]
 
 members = [
-    "panama", "strsplit",
+    "panama",
+    "strsplit",
+    "pointers",
 ]

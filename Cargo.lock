@@ -7,5 +7,9 @@ name = "panama"
 version = "0.1.0"
 
 [[package]]
+name = "pointers"
+version = "0.1.0"
+
+[[package]]
 name = "strsplit"
 version = "0.1.0"
