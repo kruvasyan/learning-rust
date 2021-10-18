@@ -3,5 +3,6 @@
 members = [
     "panama",
     "strsplit",
+    "strtok",
     "pointers",
 ]
