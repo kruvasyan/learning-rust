@@ -1,3 +1,4 @@
+use std::borrow::Borrow;
 use std::collections::hash_map::DefaultHasher;
 use std::hash::{Hash, Hasher};
 use std::mem;
@@ -18,7 +19,11 @@ impl<K, V> HashMap<K, V>
         }
     }
 
-    fn get_bucket(&self, key: &K) -> usize {
+    fn get_bucket<Q>(&self, key: &Q) -> usize
+        where
+            K: Borrow<Q>,
+            Q: Eq + Hash + ?Sized,
+    {
         let mut hasher = DefaultHasher::new();
         key.hash(&mut hasher);
         (hasher.finish() % self.buckets.len() as u64) as usize
@@ -41,24 +46,36 @@ impl<K, V> HashMap<K, V>
         None
     }
 
-    pub fn get(&self, key: &K) -> Option<&V> {
+    pub fn get<Q>(&self, key: &Q) -> Option<&V>
+        where
+            K: Borrow<Q>,
+            Q: Eq + Hash + ?Sized,
+    {
         let bucket = self.get_bucket(key);
         self.buckets[bucket]
             .iter()
-            .find(|&(ref ekey, _)| ekey == key)
+            .find(|&(ref ekey, _)| ekey.borrow() == key)
             .map(|&(_, ref v)| v)
     }
 
-    pub fn contains_key(&self, key: &K) -> bool {
+    pub fn contains_key<Q>(&self, key: &Q) -> bool
+        where
+            K: Borrow<Q>,
+            Q: Eq + Hash + ?Sized,
+    {
         self.get(key).is_some()
     }
 
-    pub fn remove(&mut self, key: &K) -> Option<V> {
+    pub fn remove<Q>(&mut self, key: &Q) -> Option<V>
+        where
+            K: Borrow<Q>,
+            Q: Eq + Hash + ?Sized,
+    {
         let bucket = self.get_bucket(key);
         let bucket = &mut self.buckets[bucket];
         let i = bucket
             .iter()
-            .position(|&(ref ekey, _)| ekey == key)?;
+            .position(|&(ref ekey, _)| ekey.borrow() == key)?;
         self.items -= 1;
         Some(bucket.swap_remove(i).1)
     }
