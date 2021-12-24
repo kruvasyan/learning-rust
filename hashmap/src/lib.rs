@@ -2,6 +2,7 @@ use std::borrow::Borrow;
 use std::collections::hash_map::DefaultHasher;
 use std::hash::{Hash, Hasher};
 use std::mem;
+use std::ops::Index;
 
 const INITIAL_BUCKETS: usize = 1;
 
@@ -148,6 +149,18 @@ impl<'a, K, V> IntoIterator for &'a HashMap<K, V> {
 
     fn into_iter(self) -> Self::IntoIter {
         Iter { map: self, bucket: 0, at: 0 }
+    }
+}
+
+impl<K, Q, V> Index<&Q> for HashMap<K, V>
+where
+    K: Eq + Hash + Borrow<Q>,
+    Q: Eq + Hash + ?Sized
+{
+    type Output = V;
+
+    fn index(&self, key: &Q) -> &V {
+        self.get(key).expect("no entry found for key")
     }
 }
 
