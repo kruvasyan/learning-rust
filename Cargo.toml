@@ -4,4 +4,5 @@ members = [
     "panama",
     "strsplit",
     "pointers",
+    "hashmap",
 ]
