@@ -1,7 +1,7 @@
 [workspace]
 
 members = [
-    "panama",
+    "sink",
     "strsplit",
     "pointers",
     "hashmap",

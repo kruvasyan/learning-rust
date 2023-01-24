@@ -1,5 +1,5 @@
 [package]
-name = "panama"
+name = "sink"
 version = "0.1.0"
 authors = ["Vasiliy Kovalev <vasiliy.kovalev.dev@gmail.com>"]
 edition = "2018"

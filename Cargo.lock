@@ -7,11 +7,11 @@ name = "hashmap"
 version = "0.1.0"
 
 [[package]]
-name = "panama"
+name = "pointers"
 version = "0.1.0"
 
 [[package]]
-name = "pointers"
+name = "sink"
 version = "0.1.0"
 
 [[package]]
