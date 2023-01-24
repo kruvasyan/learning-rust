@@ -1,1 +1,1 @@
-mod channel;
+mod mpsc;
