@@ -2,7 +2,7 @@ use std::sync::{Arc, Condvar, Mutex};
 use std::collections::VecDeque;
 
 pub struct Sender<T> {
-    shared: Arc<Shared<T>>
+    shared: Arc<Shared<T>>,
 }
 
 impl<T> Clone for Sender<T> {
@@ -45,17 +45,17 @@ pub struct Receiver<T> {
 
 impl<T> Receiver<T> {
     pub fn recv(&mut self) -> Option<T> {
-        if let Some(t) = self.buffer.pop_front(){
+        if let Some(t) = self.buffer.pop_front() {
             return Some(t);
         }
         let mut inner = self.shared.inner.lock().unwrap();
         loop {
             match inner.queue.pop_front() {
                 Some(t) => {
-                    if !inner.queue.is_empty(){
+                    if !inner.queue.is_empty() {
                         std::mem::swap(&mut self.buffer, &mut inner.queue)
                     }
-                    return Some(t)
+                    return Some(t);
                 }
                 None if inner.senders == 0 => return None,
                 None => inner = self.shared.available.wait(inner).unwrap()
@@ -64,7 +64,7 @@ impl<T> Receiver<T> {
     }
 }
 
-impl<T> Iterator for Receiver<T>{
+impl<T> Iterator for Receiver<T> {
     type Item = T;
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -101,6 +101,7 @@ pub fn channel<T>() -> (Sender<T>, Receiver<T>) {
 #[cfg(test)]
 mod tests {
     use super::*;
+
     #[test]
     fn ping_pong() {
         let (mut tx, mut rx) = channel();
