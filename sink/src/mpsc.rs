@@ -7,9 +7,7 @@ pub struct Sender<T> {
 
 impl<T> Clone for Sender<T> {
     fn clone(&self) -> Self {
-        let mut inner = self.shared.inner.lock().unwrap();
-        inner.senders += 1;
-        drop(inner);
+        self.shared.inner.lock().unwrap().senders += 1;
 
         Sender {
             shared: Arc::clone(&self.shared)
@@ -31,9 +29,7 @@ impl<T> Drop for Sender<T> {
 
 impl<T> Sender<T> {
     pub fn send(&mut self, t: T) {
-        let mut inner = self.shared.inner.lock().unwrap();
-        inner.queue.push_back(t);
-        drop(inner);
+        self.shared.inner.lock().unwrap().queue.push_back(t);
         self.shared.available.notify_one();
     }
 }
